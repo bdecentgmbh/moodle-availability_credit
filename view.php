@@ -40,12 +40,12 @@ if ($context instanceof context_module) {
             $credit = $condition;
             break;
         } else {
-            print_error('no credit condition for this context.');
+            throw new moodle_exception('No credit condition for this context.');
         }
     }
 } else {
     // TODO: handle sections.
-    print_error('support to sections not yet implemented.');
+    throw new moodle_exception('Support for sections not yet implemented.');
 }
 $coursecontext = $context->get_course_context();
 $course = $DB->get_record('course', array('id' => $coursecontext->instanceid));
