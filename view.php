@@ -101,7 +101,8 @@ if ($paymenttnx && ($paymenttnx->payment_status == 'Pending')) {
         // Check if we are paying for this.
         if (!empty($pay) && confirm_sesskey()) {
             // Process the payment.
-            $DB->insert_record('availability_credit_tnx', array('userid' => $USER->id, 'contextid' => $contextid, 'timeupdated' => time()));
+            $DB->insert_record('availability_credit_tnx', 
+                array('userid' => $USER->id, 'contextid' => $contextid, 'timeupdated' => time()));
             enrol_credit_plugin::deduct_credits($USER->id, $cost);
             redirect($context->get_url(), get_string('paymentcompleted', 'availability_credit', $usercredits - $cost));
         } else {
@@ -110,7 +111,8 @@ if ($paymenttnx && ($paymenttnx->payment_status == 'Pending')) {
                           get_string('checkout', 'enrol_credit', [
                                      'credit_cost' => $cost,
                                      'user_credits' => $usercredits]),
-                                      new moodle_url('/availability/condition/credit/view.php', array('contextid' => $contextid, 'pay' => true)),
+                                      new moodle_url('/availability/condition/credit/view.php', 
+                                      array('contextid' => $contextid, 'pay' => true)),
                                       $context->get_url());
             // Finish the page.
             echo $OUTPUT->footer();
