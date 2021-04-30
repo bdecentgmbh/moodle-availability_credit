@@ -31,5 +31,6 @@ $string['paymentcompleted'] = 'The credit cost was deducted from your available 
 $string['paymentrequired'] = 'You must use your course credits to access the activity or resource.';
 $string['creditaccepted'] = 'Course credits accepted';
 $string['pluginname'] = 'Course credit';
-$string['sendpaymentbutton'] = 'Purchase via available Course credits';
+$string['sendpaymentbutton'] = 'Purchase via available credits';
 $string['title'] = 'Course credit payment';
+$string['privacy:metadata'] = 'The Restriction by credit plugin does not store any personal data.';
