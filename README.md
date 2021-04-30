@@ -1,7 +1,7 @@
 Credit Availability Condition for Moodle
 ----------------------------------------
 
-With this plugins, you can put a price in any course content and ask for a Credit payment to allow access. It works only with "course modules and resources". The support to "course sections" or "topics" is not yet implemented.
+With this plugin, you can put a price on any course content and ask for a Credit payment to allow access. It works only with "course modules and resources". The support to "course sections" or "topics" is not yet implemented.
 
 Usage
 -----
