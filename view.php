@@ -24,7 +24,7 @@
  */
 
 require_once('../../../config.php');
-require_once ($CFG->dirroot . '/enrol/credit/lib.php');
+require_once($CFG->dirroot . '/enrol/credit/lib.php');
 $pay = optional_param('pay', 0, PARAM_BOOL);
 
 $contextid = required_param('contextid', PARAM_INT);
