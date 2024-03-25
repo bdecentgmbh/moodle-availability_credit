@@ -35,13 +35,23 @@ if ($context instanceof context_module) {
     $availability = $DB->get_field('course_modules', 'availability', array('id' => $instanceid), MUST_EXIST);
     $availability = json_decode($availability);
     foreach ($availability->c as $condition) {
-        if ($condition->type == 'credit') {
-            // TODO: handle more than one credit for this context.
-            $credit = $condition;
-            break;
-        } else {
-            throw new moodle_exception('No credit condition for this context.');
+        // TODO: handle more than one credit for this context.
+        if (isset($condition->type)) {
+            if ($condition->type === 'credit') {
+                $credit = $condition;
+                break;
+            }
+        } else { // This may be a restriction set.
+            foreach ($condition->c as $innercondition) {
+                if ($innercondition->type === 'credit') {
+                    $credit = $innercondition;
+                    break;
+                }
+            }
         }
+    }
+    if (!isset($credit)) {
+        throw new moodle_exception('No credit condition for this context.');
     }
 } else {
     // TODO: handle sections.

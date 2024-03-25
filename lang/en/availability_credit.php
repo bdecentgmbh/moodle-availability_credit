@@ -26,6 +26,7 @@ $string['ajaxerror'] = 'Error contacting server';
 $string['cost'] = 'Cost';
 $string['description'] = 'Require users to make a payment via course credits to access the activity or resource.';
 $string['eitherdescription'] = 'you use your <a href="{$a}">course credits</a>';
+$string['notdescription'] = 'you have not used your course credits';
 $string['error_cost'] = 'You must provide a cost and it must be greater than 0.';
 $string['paymentcompleted'] = 'The credit cost was deducted from your available credits leaving a balance of {$a}. Thank you.';
 $string['paymentrequired'] = 'You must use your course credits to access the activity or resource.';
