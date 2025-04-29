@@ -19,13 +19,10 @@
  *
  * @package availability_credit
  * @copyright 2021 bdecent gmbh <https://bdecent.de>
- * @developed by 2020 Derick Turner derick@e-learndesign.co.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace availability_credit;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Front-end class.
@@ -40,7 +37,7 @@ class frontend extends \core_availability\frontend {
      * @return array
      */
     protected function get_javascript_strings() {
-        return array('ajaxerror', 'cost');
+        return ['ajaxerror', 'cost'];
     }
 
     /**
@@ -66,6 +63,6 @@ class frontend extends \core_availability\frontend {
      * @return array Array of parameters for the JavaScript function
      */
     protected function get_javascript_init_params($course, \cm_info $cm = null, \section_info $section = null) {
-        return array(\get_string_manager()->get_list_of_currencies());
+        return [\get_string_manager()->get_list_of_currencies()];
     }
 }

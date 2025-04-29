@@ -19,15 +19,14 @@
  *
  * @package availability_credit
  * @copyright 2021 bdecent gmbh <https://bdecent.de>
- * @developed by 2020 Derick Turner derick@e-learndesign.co.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021043000;
+$plugin->version = 2025042900;
 $plugin->requires = 2018120300;
 $plugin->release = "Version 1";
 $plugin->maturity   = MATURITY_STABLE;
 $plugin->component = 'availability_credit';
-$plugin->dependencies = array('enrol_credit' => 2020052900);
+$plugin->dependencies = ['enrol_credit' => 2020052900];

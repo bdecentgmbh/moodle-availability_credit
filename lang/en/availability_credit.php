@@ -17,20 +17,23 @@
 /**
  * Language strings.
  *
+ * @package availability_credit
  * @copyright 2021 bdecent gmbh <https://bdecent.de>
- * @developed by 2020 Derick Turner derick@e-learndesign.co.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['ajaxerror'] = 'Error contacting server';
 $string['cost'] = 'Cost';
+$string['creditaccepted'] = 'Course credits accepted';
 $string['description'] = 'Require users to make a payment via course credits to access the activity or resource.';
 $string['eitherdescription'] = 'you use your <a href="{$a}">course credits</a>';
 $string['error_cost'] = 'You must provide a cost and it must be greater than 0.';
+$string['error_cost_must_number'] = 'The cost must be a whole number.';
+$string['notdescription'] = 'you have not used your course credits';
 $string['paymentcompleted'] = 'The credit cost was deducted from your available credits leaving a balance of {$a}. Thank you.';
 $string['paymentrequired'] = 'You must use your course credits to access the activity or resource.';
-$string['creditaccepted'] = 'Course credits accepted';
-$string['pluginname'] = 'Course credit';
+$string['paymentwaitremider'] = 'Please log in to continue with your payment.';
+$string['pluginname'] = 'Restriction by Course credit';
+$string['privacy:metadata'] = 'The Restriction by credit plugin does not store any personal data.';
 $string['sendpaymentbutton'] = 'Purchase via available credits';
 $string['title'] = 'Course credit payment';
-$string['privacy:metadata'] = 'The Restriction by credit plugin does not store any personal data.';
