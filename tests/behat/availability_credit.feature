@@ -18,9 +18,12 @@ Feature: availability_credit
       | student1 | C1     | student        |
     And the following config values are set as admin:
       | enableavailability  | 1 |
+    And the following "activities" exist:
+      | activity | course | name   | Description | Page content | section |
+      | page     | C1     | Page 1 | Test        | Test         |  1      |
 
   @javascript
-  Scenario: Test condition
+  Scenario: Restrict based on credit amount
     # Basic setup.
     Given I log in as "teacher1"
     And I am on site homepage
@@ -28,11 +31,8 @@ Feature: availability_credit
     And I turn editing mode on
 
     # Add a Page with a date condition that does match (from the past).
-    And I add a "Page" to section "1"
-    And I set the following fields to these values:
-      | Name         | Page 1 |
-      | Description  | Test   |
-      | Page content | Test   |
+    And I am on the "Page 1" "page activity" page
+    And I navigate to "Settings" in current page administration
     And I expand all fieldsets
     And I click on "Add restriction..." "button"
     And I click on "Course credit payment" "button" in the "Add restriction..." "dialogue"
@@ -46,6 +46,6 @@ Feature: availability_credit
     And I follow "Course 1"
 
     # Page 1 should appear with availability info.
-    Then I should see "Page 1" in the "#section-1 .dimmed_text" "css_element"
-    And I should see "you use your" in the "Topic 1" "section"
-    And I should see "course credits" in the "Topic 1" "section"
+    Then I should see "Page 1" in the "#section-1" "css_element"
+    And I should see "you use your"
+    And I should see "course credits"

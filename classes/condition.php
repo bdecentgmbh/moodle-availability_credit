@@ -19,13 +19,13 @@
  *
  * @package availability_credit
  * @copyright 2021 bdecent gmbh <https://bdecent.de>
- * @developed by 2020 Derick Turner derick@e-learndesign.co.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace availability_credit;
 
-defined('MOODLE_INTERNAL') || die();
+use core_availability\info_section;
+use core_availability\info_module;
 
 /**
  * Credit condition.
@@ -33,6 +33,13 @@ defined('MOODLE_INTERNAL') || die();
  * @package availability_credit
  */
 class condition extends \core_availability\condition {
+
+    /**
+     * The cost of the credit.
+     *
+     * @var int
+     */
+    public $cost;
 
     /**
      * Constructor.
@@ -51,7 +58,7 @@ class condition extends \core_availability\condition {
      * @return stdClass
      */
     public function save() {
-        $result = (object)array('type' => 'credit');
+        $result = (object)['type' => 'credit'];
         if ($this->cost) {
             $result->cost = $this->cost;
         }
@@ -70,7 +77,7 @@ class condition extends \core_availability\condition {
      * @return stdClass Object representing condition
      */
     public static function get_json($businessemail, $currency, $cost) {
-        return (object)array('type' => 'credit', 'cost' => $cost);
+        return (object)['type' => 'credit', 'cost' => $cost];
     }
 
     /**
@@ -86,14 +93,28 @@ class condition extends \core_availability\condition {
      */
     public function is_available($not, \core_availability\info $info, $grabthelot, $userid) {
         global $DB;
-        // Should double-check with credit everytime ?
+        // Should double-check with credit everytime.
         $context = $info->get_context();
-        $allow = $DB->record_exists('availability_credit_tnx',
-                                  array('userid' => $userid,
-                                        'contextid' => $context->id));
+        $allow = false;
+
+        if ($info instanceof info_section) {
+            $section = $info->get_section();
+            if (!empty($section->id)) {
+                $id = $section->id;
+                $allow = $DB->record_exists('availability_credit_tnx', ['userid' => $userid, 'contextid' => $id]);
+            }
+        } else if ($info instanceof info_module) {
+            $cm = $info->get_course_module();
+            if (!empty($cm->id)) {
+                $id = $cm->id;
+                $allow = $DB->record_exists('availability_credit_tnx', ['userid' => $userid, 'contextid' => $context->id]);
+            }
+        }
+
         if ($not) {
             $allow = !$allow;
         }
+
         return $allow;
     }
 
@@ -120,7 +141,19 @@ class condition extends \core_availability\condition {
      */
     protected function get_either_description($not, $standalone, $info) {
         $context = $info->get_context();
-        $url = new \moodle_url('/availability/condition/credit/view.php?contextid='.$context->id);
+
+        if ($info instanceof info_section) {
+            $section = $info->get_section();
+            if (!empty($section->id)) {
+                $url = new \moodle_url('/availability/condition/credit/view.php?id='.$section->id.'&contextid='.$context->id);
+            }
+        } else if ($info instanceof info_module) {
+            $cm = $info->get_course_module();
+            if (!empty($cm->id)) {
+                $url = new \moodle_url('/availability/condition/credit/view.php?id='.$cm->id.'&contextid='.$context->id);
+            }
+        }
+
         if ($not) {
             return get_string('notdescription', 'availability_credit', $url->out());
         } else {

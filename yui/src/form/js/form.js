@@ -17,13 +17,13 @@ M.availability_credit.form = Y.Object(M.core_availability.plugin);
  * @method initInner
  * @param {Array} currencies Array of currency_code => localised string
  */
-M.availability_credit.form.initInner = function(currencies) {
+M.availability_credit.form.initInner = function (currencies) {
     this.currencies = currencies;
 };
 
-M.availability_credit.form.getNode = function(json) {
+M.availability_credit.form.getNode = function (json) {
     var selected_string = '';
-
+    var html = '';
     html += '<div><label>';
     html += M.util.get_string('cost', 'availability_credit');
     html += '<input name="cost" type="text" /></label></div>';
@@ -45,18 +45,18 @@ M.availability_credit.form.getNode = function(json) {
 
         var root = Y.one('.availability-field');
 
-        root.delegate('change', function() {
-                // The key point is this update call. This call will update
-                // the JSON data in the hidden field in the form, so that it
-                // includes the new value of the checkbox.
-                M.core_availability.form.update();
+        root.delegate('change', function () {
+            // The key point is this update call. This call will update
+            // the JSON data in the hidden field in the form, so that it
+            // includes the new value of the checkbox.
+            M.core_availability.form.update();
         }, '.availability_credit input');
     }
 
     return node;
 };
 
-M.availability_credit.form.fillValue = function(value, node) {
+M.availability_credit.form.fillValue = function (value, node) {
     // This function gets passed the node (from above) and a value
     // object. Within that object, it must set up the correct values
     // to use within the JSON data in the form. Should be compatible
@@ -74,7 +74,7 @@ M.availability_credit.form.fillValue = function(value, node) {
  * @method getValue
  * @return {Number|String} Value of field as number or string if not valid
  */
-M.availability_credit.form.getValue = function(field, node) {
+M.availability_credit.form.getValue = function (field, node) {
     // Get field value.
     var value = node.one('input[name=' + field + ']').get('value');
 
@@ -88,11 +88,15 @@ M.availability_credit.form.getValue = function(field, node) {
     return result;
 };
 
-M.availability_credit.form.fillErrors = function(errors, node) {
+M.availability_credit.form.fillErrors = function (errors, node) {
     var value = {};
     this.fillValue(value, node);
 
-    if ((value.cost !== undefined && typeof(value.cost) === 'integer') || value.cost <= 0 ) {
+    if ((!Number.isInteger(value.cost))) {
+        errors.push('availability_credit:error_cost_must_number');
+    }
+
+    if ((value.cost !== undefined && Number.isInteger(value.cost)) && value.cost <= 0) {
         errors.push('availability_credit:error_cost');
     }
 };
